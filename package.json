@@ -1,0 +1,21 @@
+{
+  "name": "nodemongo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "async": "^2.6.0",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "mongodb": "~3.0.2",
+    "ejs": "~2.5.7",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "serve-favicon": "~2.4.5"
+  }
+}

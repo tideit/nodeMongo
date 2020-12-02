@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function mongoInsert() {
+            $.ajax({
+                url: "http://localhost:3000/mongo/insert",//接口服务器地址
+                dataType:"text",
+                type:"get",
+                data:{"name":document.getElementById("insertName").value,
+                    "age":document.getElementById("insertAge").value,
+                    "job":document.getElementById("insertJob").value},//请求数据
+                success:function(data){
+                    alert("插入成功");
+                },
+                error:function(e){
+                    alert("Error:" + e.status+','+ e.statusText);
+                }
+            })
+        }
+
+        function mongoUpdate() {
+            $.ajax({
+                url: "http://localhost:3000/mongo/update",//接口服务器地址
+                dataType:"text",
+                type:"get",
+                data:{"oldName":document.getElementById("oldName").value,
+                    "newName":document.getElementById("newName").value},//请求数据
+                success:function(data){
+                    alert("更新成功");
+                },
+                error:function(e){
+                    alert("Error:" + e.status+','+ e.statusText);
+                }
+            })
+        }
+
+        function mongoDelete() {
+            $.ajax({
+                url: "http://localhost:3000/mongo/delete",//接口服务器地址
+                dataType:"text",
+                type:"get",
+                data:{"name":document.getElementById("deleteName").value},//请求数据
+                success:function(data){
+                    alert("删除成功");
+                },
+                error:function(e){
+                    alert("Error:" + e.status+','+ e.statusText);
+                }
+            })
+        }
+
+        function mongoFind() {
+            $.ajax({
+                url: "http://localhost:3000/mongo/find",//接口服务器地址
+                dataType:"text",
+                type:"get",
+                data:{"name":document.getElementById("findName").value},//请求数据
+                success:function(data){
+                    var jsonData = $.parseJSON(data);
+                    document.getElementById("divList").innerHTML = "<br>Result:<br>----------------<br>";
+                    for (i=0;i<jsonData.length;i++){
+                        document.getElementById("divList").innerHTML += "Name:" + jsonData[i].name
+                            + "<br>Age:" + jsonData[i].age
+                            + "<br>Job:" + jsonData[i].job
+                            + "<br>----------------<br>";
+                    }
+                },
+                error:function(e){
+                    document.getElementById("divList").innerHTML = "Error:" + e.status+','+ e.statusText;
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<h1><%= title %>'s Test for nodeJS + MongoDB + Express + Async</h1>
+<p>Welcome to <%= title %></p>
+
+<ul>
+    <li style="margin-bottom:10px">
+        后台接口调用：<a href="http://localhost:3000/users/getUserInfo?id=1">getUserInfo</a>
+    </li>
+    <li style="margin-bottom:10px">
+        MongoDB新增数据：Name:<input id="insertName"> Age:<input id="insertAge"> Job:<input id="insertJob">  <button id="btnInsert" onclick="mongoInsert();">新增</button>
+    </li>
+    <li style="margin-bottom:10px">
+        MongoDB修改数据：NameOld:<input id="oldName"> NameNew:<input id="newName"> <button id="btnUpdate" onclick="mongoUpdate();">修改</button>
+    </li>
+    <li style="margin-bottom:10px">
+        MongoDB删除数据：Name:<input id="deleteName"> <button id="btnDelete" onclick="mongoDelete();">删除</button>
+    </li>
+    <li>
+        从MongoDB检索数据：Name:<input id="findName"> <button id="btnFind" onclick="mongoFind();">检索</button><a href="http://localhost:3000/mongo/find?name=sun">Find</a>
+        <div id="divList">
+        </div>
+    </li>
+</ul>
+</body>
+</html>
